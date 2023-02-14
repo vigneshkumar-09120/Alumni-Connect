@@ -1,0 +1,79 @@
+<nav id="sidebarMenu" class="navbar-dark bg-dark col-md-3 col-lg-2 d-md-block sidebar-sticky collapse">
+    <div class="position-sticky pt-1">
+        <ul class="nav flex-column">
+            <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                    aria-current="page" href="{% url 'home' %}">
+                    <span data-feather="home"></span>
+                    Dashboard
+                </a>
+            </li>
+            
+            <li class="nav-item {% if request.resolver_match.url_name == 'list_alumni' %}active{% endif %}">
+                <a class="nav-link {% if request.resolver_match.url_name == 'list_alumni' %}active{% endif %}"
+                    aria-current="page" href="{% url 'alsearch' %}">
+                    <span data-feather="users" class="me-3"></span>Alumni Search
+                </a>
+            </li>
+            <div class="mt-4">
+            <button class="btn bg-transparent align-items-center rounded collapsed" data-bs-toggle="collapse"
+                    data-bs-target="#new-collapse" aria-expanded="true">
+                    <span class='navbar-text'><b>Profile</b></span>
+                </button>
+                <div class="collapse show" id="new-collapse">
+                    <ul class="nav flex-column">
+                        <li class="nav-item {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}"
+                                href="{% url 'skillfm' %}">
+                                <span data-feather="message-square"></span>
+                                Profile Update
+                            </a>
+                        </li>
+                        <li class="nav-item {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}"
+                                href="{% url 'sprofile' %}">
+                                <span data-feather="message-square"></span>
+                                My profile
+                            </a>
+                        </li>
+                    </div>
+
+            <div class="mt-4">
+                <button class="btn bg-transparent align-items-center rounded collapsed" data-bs-toggle="collapse"
+                    data-bs-target="#new-collapse" aria-expanded="true">
+                    <span class='navbar-text'><b>Posts</b></span>
+                </button>
+                <div class="collapse show" id="new-collapse">
+                    <ul class="nav flex-column">
+                        <li class="nav-item {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}"
+                                href="{% url 'post_list' %}">
+                                <span data-feather="message-square"></span>
+                                Posts
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}"
+                                href="{% url 'chatbot' %}">
+                                <i class="fa-solid fa-spider-web"></i>
+                                Chat BOT
+                            </a>
+                        </li>
+                    
+                        <!--
+                        <li
+                            class="nav-item {% if request.resolver_match.url_name == 'list_student_comment' %}active{% endif %}">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'list_student_comment' %}active{% endif %}"
+                                href="{% url 'list_student_comment' %}">
+                                <span data-feather="message-circle"></span>
+                                My Comments
+                            </a>
+                        </li>
+                        -->
+                    </ul>
+                </div>
+            </div>
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+{% if perms.auth.is_admin %}
+{% include "admin/components/sidebar.html" %}
+{% elif perms.auth.is_alumnus %}
+{% include "alumni/components/sidebar.html" %}
+{% elif perms.auth.is_student %}
+{% include "student/components/sidebar.html" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="
+      d-flex
+      justify-content-between
+      flex-wrap flex-md-nowrap
+      align-items-center
+      pt-3
+      pb-2
+      mb-3
+      border-bottom
+    ">
+        <h1 class="h2">Posts</h1>
+    </div>
+    <div>
+        <div class="row">
+            <div class="col-12">
+                {% if posts %}
+                {% for post in posts %}
+                <div class="row">
+                    <div class="card border-dark mb-3">
+                        <div class="card-header d-flex">
+                            <a href={% url 'post_detail' pk=post.pk %} style="text-decoration: none;">{{post.title}}</a>
+                            <div class="text-muted ms-auto">
+                                {{post.author.name}}, 
+                                <time>{{post.time_posted}}</time>
+                            </div>
+                        </div>
+                        <div class="card-body text-dark">
+                            <p class="card-text">{{post.content}}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <h2 class="h3">No posts</h1>
+                    {% endif %}
+            </div>
+        </div>
+</main>
+{% endblock %}

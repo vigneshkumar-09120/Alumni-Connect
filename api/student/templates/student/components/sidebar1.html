@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  </head><style>
+   
+/* Position and style the close button (top right corner) */
+.sidepanel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style the button that is used to open the sidepanel */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+  </style>
+</head>
+
+<div id="mySidepanel" class="sidepanel">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <ul class="nav flex-column">
+        <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+            <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                aria-current="page" href="{% url 'home' %}">
+                <span data-feather="home"></span>
+                Dashboard
+            </a>
+        </li>
+        
+        <li class="nav-item {% if request.resolver_match.url_name == 'list_alumni' %}active{% endif %}">
+            <a class="nav-link {% if request.resolver_match.url_name == 'list_alumni' %}active{% endif %}"
+                aria-current="page" href="{% url 'alsearch' %}">
+                <span data-feather="users" class="me-3"></span>Alumni Search
+            </a>
+        </li>
+        <div class="mt-4">
+        <button class="btn bg-transparent align-items-center rounded collapsed" data-bs-toggle="collapse"
+                data-bs-target="#new-collapse" aria-expanded="true">
+                <span class='navbar-text'><b>Profile</b></span>
+            </button>
+            <div class="collapse show" id="new-collapse">
+                <ul class="nav flex-column">
+                    <li class="nav-item {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}"
+                            href="{% url 'skillfm' %}">
+                            <span data-feather="message-square"></span>
+                            Profile Update
+                        </a>
+                    </li>
+                    <li class="nav-item {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}"
+                            href="{% url 'sprofile' %}">
+                            <span data-feather="message-square"></span>
+                            My profile
+                        </a>
+                    </li>
+                </div>
+
+        <div class="mt-4">
+            <button class="btn bg-transparent align-items-center rounded collapsed" data-bs-toggle="collapse"
+                data-bs-target="#new-collapse" aria-expanded="true">
+                <span class='navbar-text'><b>Posts</b></span>
+            </button>
+            <div class="collapse show" id="new-collapse">
+                <ul class="nav flex-column">
+                    <li class="nav-item {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}"
+                            href="{% url 'post_list' %}">
+                            <span data-feather="message-square"></span>
+                            Posts
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}"
+                            href="{% url 'chatbot' %}">
+                            <i class="fa-solid fa-spider-web"></i>
+                            Chat BOT
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ul>
+  </div>
+  
+  <button class="openbtn" onclick="openNav()">&#9776; Toggle Sidepanel</button>
+  <script>
+    /* Set the width of the sidebar to 250px (show it) */
+function openNav() {
+  document.getElementById("mySidepanel").style.width = "250px";
+}
+
+/* Set the width of the sidebar to 0 (hide it) */
+function closeNav() {
+  document.getElementById("mySidepanel").style.width = "0";
+}
+  </script>

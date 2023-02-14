@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+{% include "base/admin/sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="mt-5">
+<table class=" mt-4 table">
+    <thead>
+      <tr>
+        <th scope="col">Sl.No</th>
+        <th scope="col">STUDENT ID</th>
+        <th scope="col">USN</th>
+        <th scope="col">STUDENT FULL NAME</th>
+        <th scope="col">STUDENT CONTACT</th>
+        <th scope="col">STUDENT EMAIL</th>
+        <th scope="col">RVCE Mail ID</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for item in students%}
+      <tr>
+        <th scope="row">{{item.user.pk}}</th>
+        <td>{{item.sap_id}}</td>
+        <td>{{item.usn}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.phone}}</td>
+        <td>{{item.personal_email}}</td>
+        <td>{{item.email}}</td>
+        <td>
+            <form action="{% url 'delete_student' pk=item.user.pk %}" method="post">
+                {% csrf_token %}
+                <button class="btn-danger" type="submit" value="Delete"><span data-feather="trash-2"></span></button>
+            </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  </main>
+{% endblock %}

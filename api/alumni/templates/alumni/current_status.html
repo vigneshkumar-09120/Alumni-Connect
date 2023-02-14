@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+
+
+
+{% block sidebar %}
+{% if perms.auth.is_admin %}
+{% include "admin/components/sidebar.html" %}
+{% elif perms.auth.is_alumnus %}
+{% include "alumni/components/sidebar.html" %}
+{% elif perms.auth.is_student %}
+{% include "student/components/sidebar.html" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<main class="col-md-3 ms-sm-auto col-lg-10 px-md-4">
+    
+
+    <div class="card text-white bg-dark col-md-6 offset-md-3 mt-5 p-5">
+        <h1 class="h2 mb-4">Current Status form</h1>
+        <form method="post">
+          {% csrf_token %}
+          <div class="mt-4">
+            <label class="col-form-label">select current status</label>
+            {{ form.Category}}
+          </div>
+          <div class="mt-4">
+            <label class="col-form-label">Write a short description on your Current Status</label>
+            {{ form.description }}
+          </div>
+          
+          <div class="mt-4">
+            {% if messages %}
+            <ul class="success-list">
+              {% for message in messages %}
+              <li class="success-list">{{ message }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+            {% if form.errors %}
+            <ul class="error-list">
+              {% for key,value in form.errors.items %}
+              <li>{{ value|escape }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          <div class="mt-4">
+            <button type="submit" class="btn btn-primary">Update</button>
+          </div>
+        </form>
+      </div>
+  </main>
+{% endblock %}

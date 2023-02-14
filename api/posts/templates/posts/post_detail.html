@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+{% if perms.auth.is_admin %}
+{% include "admin/components/sidebar.html" %}
+{% elif perms.auth.is_alumnus %}
+{% include "alumni/components/sidebar.html" %}
+{% elif perms.auth.is_student %}
+{% include "student/components/sidebar.html" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="
+      d-flex
+      justify-content-between
+      flex-wrap flex-md-nowrap
+      align-items-center
+      pt-3
+      pb-2
+      mb-3
+      border-bottom
+    ">
+    <h1 class="h2">Posts</h1>
+  </div>
+  <div class="row">
+    <div class="card border-dark mb-3">
+      <div class="card-header d-flex">
+        {{post.title}}
+        <div class="text-muted ms-auto">
+          {{post.author.name}}, 
+          <time>{{post.time_posted}}</time>
+        </div>
+      </div>
+      <div class="card-body text-dark">
+        <p class="card-text">{{post.content}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <h2 class="h3">Comments</h1>
+  </div>
+  <div class="col-md-8 card mb-4  mt-3 ">
+    <div class="card-body">
+      <p>{{ comments.count }} comments</p>
+      {% for comment in comments %}
+      <div class="comments" style="padding: 10px;">
+        <p class="font-weight-bold">
+          {{ comment.posted_by }}
+          <span class="text-muted font-weight-normal">
+            {{ comment.time_posted }}
+          </span>
+        </p>
+        {{ comment.content | linebreaks }}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-md-8 card mb-4  mt-3 ">
+    <div class="card-body">
+      <h3>Leave a comment</h3>
+      <form method="post" style="margin-top: 1.3em;">
+        {{ comment_form.content }}
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary btn-lg mt-4">Submit</button>
+      </form>
+    </div>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .wrapper {
+  width: 900px;
+  margin: auto;
+  border: 4px solid #577285;
+  overflow-x: hidden;
+}
+
+.target {
+  font-weight: bold;
+  color: #0f0909;
+  animation-name: rightToLeft;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  /* animation: rightToLeft 4.5s linear infinite; */
+}
+
+@keyframes rightToLeft {
+  0% {
+    transform: translateX(200px);
+  }
+  100% {
+    transform: translateX(-160px);
+  }
+}
+</style>
+{% extends "base.html" %}
+{% block sidebar %}
+{% include "alumni/components/sidebar.html" %}
+{% endblock %}
+ {% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    
+        <h1 style="border-bottom:inset;border-color: #070808;margin-top: 10px;" class="h2">Alumni Dashboard</h1>
+    
+    <div class="wrapper">
+        <h2 class="target">Up comming Events</h2>
+      </div>
+    <div  class="row">
+        {% for item in event %}   
+
+       <div class="card" style="width: 25rem;">
+           <img src="{{item.Image.url}}" class="card-img-top" />
+           <div class="card-body">
+             <h5 class="card-title">Event Name : {{item.Name}}</h5>
+             <p class="card-text">Description : {{item.Description}}</p>
+           </div>
+           <ul class="list-group list-group-light list-group-small">
+             <li class="list-group-item px-4"> Date : {{item.Date}}</li>
+             <li class="list-group-item px-4">Location : {{item.Location}}</li>
+             <li class="list-group-item px-4">Time : {{item.Time}}</li>
+           </ul>
+    
+    {% endfor %}
+</div>
+
+
+
+<div style="margin-top: 10px;"class="wrapper">
+    <h2 class="target">Recent Posts</h2>
+  </div>
+<div>
+    <div class="row">
+        <div class="col-12">
+            {% if posts %}
+            {% for post in posts %}
+            <div class="row">
+                <div class="card border-dark mb-3">
+                    <div class="card-header d-flex">
+                        <a href={% url 'post_detail' pk=post.pk %} style="text-decoration: none;">{{post.title}}</a>
+                        <div class="text-muted ms-auto">
+                            {{post.author.name}}, 
+                            <time>{{post.time_posted}}</time>
+                        </div>
+                    </div>
+                    <div class="card-body text-dark">
+                        <p class="card-text">{{post.content}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <h2 class="h3">No posts</h1>
+                {% endif %}
+        </div>
+    </div>
+</main>
+{% endblock %}

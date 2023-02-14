@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .wrapper {
+  width: 900px;
+  margin: auto;
+  border: 4px solid #577285;
+  overflow-x: hidden;
+}
+
+.target {
+  font-weight: bold;
+  color: #0f0909;
+  animation-name: rightToLeft;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  /* animation: rightToLeft 4.5s linear infinite; */
+}
+
+@keyframes rightToLeft {
+  0% {
+    transform: translateX(200px);
+  }
+  100% {
+    transform: translateX(-160px);
+  }
+}
+    </style>
+   </head>
+
+{% extends "base.html" %}
+
+{% block sidebar %}
+{% include "student/components/sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="
+              d-flex
+              justify-content-between
+              flex-wrap flex-md-nowrap
+              align-items-center
+              pt-3
+              pb-2
+              mb-3
+              border-bottom
+            ">
+        <h1 class="h2">Student Dashboard</h1>
+        </div>
+        <div class="wrapper">
+            <h2 class="target">Recent Posts</h2>
+          </div>
+<div>
+    <div class="row">
+        <div class="col-12">
+            {% if posts %}
+            {% for post in posts %}
+            <div class="row">
+                <div class="card border-dark mb-3">
+                    <div class="card-header d-flex">
+                        <a href={% url 'post_detail' pk=post.pk %} style="text-decoration: none;">{{post.title}}</a>
+                        <div class="text-muted ms-auto">
+                            {{post.author.name}}, 
+                            <time>{{post.time_posted}}</time>
+                        </div>
+                    </div>
+                    <div class="card-body text-dark">
+                        <p class="card-text">{{post.content}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <h2 class="h3">No posts</h1>
+                {% endif %}
+        </div>
+    </div>
+        
+
+    
+</main>
+{% endblock %}

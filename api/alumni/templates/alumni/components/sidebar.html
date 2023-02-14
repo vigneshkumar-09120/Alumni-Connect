@@ -1,0 +1,66 @@
+<nav id="sidebarMenu" class="navbar-dark bg-dark col-md-3 col-lg-2 d-md-block sidebar-sticky collapse">
+    <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+            <li class="nav-item  {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">
+                    <span data-feather="home"></span>
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item {% if request.resolver_match.url_name == 'new_post' %}active{% endif %}">
+                <a class="nav-link {% if request.resolver_match.url_name == 'new_post' %}active{% endif %}" href="{% url 'new_post' %}">
+                    <span data-feather="plus-square"></span>
+                    Create Post
+                </a>
+            </li>
+            <li class="nav-item {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}">
+                <a class="nav-link {% if request.resolver_match.url_name == 'post_list' %}active{% endif %}" href="{% url 'post_list' %}">
+                    <span data-feather="message-square"></span>
+                    Posts
+                </a>
+            </li>
+            <li class="nav-item {% if request.resolver_match.url_name == 'list_alumni_post' %}active{% endif %}">
+                <a class="nav-link {% if request.resolver_match.url_name == 'list_alumni_post' %}active{% endif %}" href="{% url 'list_alumni_post' %}">
+                    <span data-feather="message-square"></span>
+                    My Posts
+                </a>
+            </li>
+            <li class="nav-item {% if request.resolver_match.url_name == '#' %}active{% endif %}">
+                <a class="nav-link {% if request.resolver_match.url_name == '#' %}active{% endif %}" href="{% url 'list_event' %}">
+                    <span data-feather="bar-chart-2"></span>
+                    Events
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="mb-4">
+        <button class="btn bg-transparent align-items-center rounded collapsed" data-bs-toggle="collapse"
+            data-bs-target="#new-collapse" aria-expanded="true">
+            <span class='navbar-text'><b>Profile</b></span>
+        </button>
+        <div class="collapse show" id="new-collapse">
+            <ul class="nav flex-column">
+                <li class="nav-item {% if request.resolver_match.url_name == 'new_student' %}active{% endif %}">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'new_student' %}active{% endif %}"
+                        aria-current="page" href="{% url 'profile' %}">
+                        <span data-feather="user-plus" class="me-3"></span> My Profile
+                    </a>
+                </li>
+                <!--
+                <li class="nav-item {% if request.resolver_match.url_name == 'new_alumni' %}active{% endif %}">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'new_alumni' %}active{% endif %}"
+                        aria-current="page" href="{% url 'job' %}">
+                        <span data-feather="user-plus" class="me-3"></span> Job profile
+                    </a>
+                </li>
+                <li class="nav-item {% if request.resolver_match.url_name == 'new_alumni' %}active{% endif %}">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'new_alumni' %}active{% endif %}"
+                        aria-current="page" href="{% url 'high' %}">
+                        <span data-feather="bar-chart-2" class="me-3"></span> Higher Studies
+                    </a>
+                </li>
+            -->
+            </ul>
+        </div>
+    </div>
+</nav>

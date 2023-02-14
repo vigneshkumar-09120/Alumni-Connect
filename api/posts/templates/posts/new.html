@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+{% if perms.auth.is_admin %}
+{% include "admin/components/sidebar.html" %}
+{% elif perms.auth.is_alumnus %}
+{% include "alumni/components/sidebar.html" %}
+{% elif perms.auth.is_student %}
+{% include "student/components/sidebar.html" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="card text-white bg-dark col-md-6 offset-md-3 mt-5 p-5">
+    <h1 class="h2">Create Post</h1>
+    <form method="post" action="{% url 'new_post' %}">
+      {% csrf_token %}
+      <div class="mt-4">
+        <!-- <label class="col-form-label">Post Title </label> -->
+        {{ form.title }}
+      </div>
+      <div class="mt-2">
+        <!-- <label class="col-form-label">Post Content </label> -->
+        {{ form.content }}
+      </div>
+      <div class="mt-4">
+        <button type="submit" class="btn btn-primary">Create</button>
+      </div>
+    </form>
+  </div>
+</main>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+
+
+
+{% block sidebar %}
+{% if perms.auth.is_admin %}
+{% include "admin/components/sidebar.html" %}
+{% elif perms.auth.is_alumnus %}
+{% include "alumni/components/sidebar.html" %}
+{% elif perms.auth.is_student %}
+{% include "student/components/sidebar.html" %}
+{% endif %}
+{% endblock %}
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-">
+    <div class="
+              d-flex
+              justify-content-between
+              flex-wrap flex-md-nowrap
+              align-items-center
+              pt-3
+              pb-2
+              mb-3
+              border-bottom
+            ">
+        <h1 class="h2">Alumni Dashboard</h1>
+
+    </div>
+<div class="container" >
+   
+    
+    <div class="row">
+   
+        <div class="col-md-4 col-sm-6">
+          <h3>Domains</h3>
+            <canvas id="myChart"></canvas>
+        </div>
+         
+        <div class="col-md-7 col-sm-6">
+          <h3>Company and Alumni</h3>
+            <canvas id="myChar"></canvas>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    const ctx = document.getElementById('myChart');
+  
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Higher Studies', 'Jobs','Enterprenuers','Others'],
+        datasets: [{
+          label: 'No of Alumni',
+          data: [{{h}}, {{j}},{{e}},{{o}}],
+          
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        animation: {
+            duration: 6000,
+        },
+      }
+      
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    const ct = document.getElementById('myChar');
+  
+    new Chart(ct, {
+      type: 'bar',
+      data: {
+        labels: ['Highest', 'Lowest','Avg'],
+        datasets: [{
+          label: 'Package in CTC',
+          data: [10,10,40],
+         
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        animation: {
+            duration: 6000,
+        },
+      }
+    });
+  </script>
+  </main>
+{% endblock %}

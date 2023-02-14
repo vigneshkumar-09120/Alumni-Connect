@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    container_name: dbdex_db_c
+    volumes:
+      - ./data/db:/var/lib/postgreql/data
+    env_file: ./envs/.dbenv
+    ports:
+      - 5432:5432
+
+  api:
+    depends_on:
+      - db 
+    image: dbd_api
+    build: ./api   
+    command: python manage.py runserver 0.0.0.0:8000
+    container_name: dbdex_api_c
+    volumes:
+      - ./api:/home/api/app
+    ports:
+      - 8000:8000
+
+  pgadmin:
+    depends_on:
+      - db
+    image: dpage/pgadmin4
+    container_name: dbdex_pgadmin_c
+    env_file: ./envs/.pgenv
+    ports:
+      - 5050:80

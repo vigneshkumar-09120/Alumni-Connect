@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="col-md-4 offset-md-4 mt-5">
+  <h1 class="h2">Register</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mt-2">
+      <label class="col-form-label">Username</label>
+      {{ form.username }}
+    </div>
+    <div class="mt-2">
+      <label class="col-form-label">Email</label>
+      {{ form.email }}
+    </div>
+    <div class="mt-2">
+      <label class="col-form-label">Password</label>
+      {{ form.password1 }}
+    </div>
+    <div class="mt-2">
+      <label class="col-form-label">Confirm Password</label>
+      {{ form.password2 }}
+    </div>
+    <div class="mt-2">
+      {% if messages %}
+      <ul class="success-list">
+        {% for message in messages %}
+        <li class="success-list">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% if form.errors %}
+      <ul class="error-list">
+        {% for key,value in form.errors.items %} 
+        <li>{{ value|escape }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+    <div class="mt-4">
+      <button type="submit" class="btn btn-primary">Register</button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

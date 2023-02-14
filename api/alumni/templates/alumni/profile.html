@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+
+
+
+{% block sidebar %}
+{% if perms.auth.is_admin %}
+{% include "admin/components/sidebar.html" %}
+{% elif perms.auth.is_alumnus %}
+{% include "alumni/components/sidebar.html" %}
+{% elif perms.auth.is_student %}
+{% include "student/components/sidebar.html" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <a href="{% url 'update' %}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Update Job</a>
+  <a href="{% url 'update2' %}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Update Higher Studies</a>
+  <a href="{% url 'update3' %}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Update Current Status</a>
+  <h1 style="border-bottom:inset;border-color:rgb(81, 78, 90);border-width: thin;">Profile</h1>
+<div class="row">
+            
+            
+            
+  <div  style="border-style:inset; border-color:black; margin-right: 5px;" class="col-md-5 col-sm-8 ">
+      <h3 style="border-bottom:inset;border-color:black;border-width: thin;">Personal Info</h3>
+      <b>Name : </b>{{data.name}}<br>
+      <b>USN :</b> {{data.usn}}<br>
+      <b>Phone:</b> {{data.phone}}<br>
+      <b>Email : </b>{{data.email}}<br>
+      <b>RV Email :</b> {{data.rv_email}}<br>
+      <b>Date of Join :</b>{{data.year_joined}}<br>
+      <b>Date of Graduation :</b> {{data.year_passed}}<br>
+     
+    </div>
+    <div style="border-style:inset; border-color:black;"  class="col-md-5 col-sm-6">
+      <h3 style="border-bottom:inset;border-color:black;border-width: thin;">Current Status</h3>
+      <b>Current Status : </b>{{data.category.Category}}<br>
+      <b>Description :</b> {{data.category.description}}<br>
+     
+    
+    </div>
+</div>
+<br><br>
+<div class="row">
+<div style="border-style:inset; border-color:black;margin-right: 5px"  class="col-md-5 col-sm-8">
+  <h3 style="border-bottom:inset;border-color:black;border-width: thin;">Higher Studies</h3>
+  <b>College Name : </b> {{data.higherstudies.college_name}}<br>
+  <b>Specialization :</b> {{data.higherstudies.specialization}}<br>
+  <b>Degree :</b> {{data.higherstudies.degree}}<br>
+  <b>Location :</b> {{data.higherstudies.location}}<br>
+  <b>Graduated Date(Expected) :</b> {{data.higherstudies.yearofgrad}}<br>
+ 
+</div>
+<div style="border-style:inset; border-color:black;" class="col-md-5 col-sm-6">
+  <h3 style="border-bottom:inset;border-color:black;border-width: thin;">Job</h3>
+   <b>Company Name : </b> {{data.job.company_name}}<br>
+   <b>Role :</b> {{data.job.role}}<br>
+   <b>Location :</b> {{data.job.location}}<br>
+   <b>Salary :</b> {{data.job.salary}}<br>
+   
+</div>
+</div>
+</main>
+{% endblock %}

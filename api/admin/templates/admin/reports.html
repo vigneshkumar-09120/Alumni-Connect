@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block sidebar %}
+{% include "admin/components/sidebar.html" %}
+{% endblock %} {% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="
+              d-flex
+              justify-content-between
+              flex-wrap flex-md-nowrap
+              align-items-center
+              pt-3
+              pb-2
+              mb-3
+              border-bottom
+            ">
+
+        <h1 class="h2">Reports</h1>
+
+    </div>
+    <section>
+        <img src="{% static 'images/1.jpeg' %}" class="rounded mx-auto d-block" alt="...">
+        <img src="{% static 'images/2.jpeg' %}" class="rounded mx-auto d-block" alt="...">
+        <img src="{% static 'images/3.jpeg' %}" class="rounded mx-auto d-block" alt="...">
+        <img src="{% static 'images/4.jpeg' %}" class="rounded mx-auto d-block" alt="...">
+        <img src="{% static 'images/5.jpeg' %}" class="rounded mx-auto d-block" alt="...">
+        <img src="{% static 'images/6.jpeg' %}" class="rounded mx-auto d-block" alt="...">
+        <img src="{% static 'images/7.jpeg' %}" class="rounded mx-auto d-block" alt="...">
+    </section>
+
+</main>
+{% endblock %}

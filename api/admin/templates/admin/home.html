@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .counter{
+    color: #fff;
+    background: linear-gradient(to right bottom, #4d4c48, #44423f);
+    font-family: 'Dosis', sans-serif;
+    text-align: center;
+    width: 180px;
+    height: 180px;
+    padding: 40px 20px 20px;
+    margin: 0 auto;
+    border-radius: 10px 10px 100px 100px;
+    box-shadow: 0 0 15px -5px rgba(0,0,0,0.3);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+.counter:after{
+    content: '';
+    background-color: #2c2821;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+}
+.counter .counter-value{
+    font-size: 55px;
+    font-weight: 600;
+    line-height: 40px;
+    margin: 0 0 15px;
+    display: block;
+}
+.counter h3{
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 20px;
+}
+.counter.green{ background: linear-gradient(to right bottom, #32352c, #1c1f1b); }
+.counter.green:after{ background: #52C242; }
+.counter.cgreen{ background: linear-gradient(to right bottom, #01AD9F, #008888); }
+.counter.cgreen:after{ background: #1e2929; }
+.counter.blue{ background: linear-gradient(to right bottom, #252a2b, #0092f4); }
+.counter.blue:after{ background: #0092f4; }
+@media screen and (max-width:990px){
+    .counter{ margin-bottom: 40px; }
+}
+    </style>
+</head>
+<body>
+    
+</body>
+</html>
+{% extends "base.html" %}
+{% block sidebar %}
+{% include "admin/components/sidebar.html" %}
+{% endblock %} {% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="
+              d-flex
+              justify-content-between
+              flex-wrap flex-md-nowrap
+              align-items-center
+              pt-3
+              pb-2
+              mb-3
+              border-bottom
+            ">
+        <h1 class="h2">Admin Dashboard</h1>
+
+    </div>
+<br>
+    
+    <div class="container" >
+        <div class="row">
+            <div class="col-md-3 col-sm-6">
+                <div class="counter">
+                    <span class="counter-value">{{alumni}}</span>
+                    <h3>Alumni</h3>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="counter blue">
+                    <span class="counter-value">{{students}}</span>
+                    <h3>Students</h3>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="counter">
+                    <span class="counter-value">{{events}}</span>
+                    <h3>Events</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br><br>
+    
+
+      <div class="container" >
+   
+    
+        <div class="row">
+            <div class="col-md-7 col-sm-6">
+                <h3 style="text-decoration-line: underline;">No of Events by year</h3>
+                  <canvas id="myChartt"></canvas>
+              </div>
+       
+            <div class="col-md-4 col-sm-6">
+              <h3 style="text-decoration-line: underline;">Current Status of Alumni</h3>
+                <canvas id="myChart"></canvas>
+            </div>
+             <br>
+             <br>
+            <div class="col-md-7 col-sm-6">
+              <h3>Roles in Comapny</h3>
+
+                <canvas id="myChar"></canvas>
+            </div>
+            <div class="col-md-12 col-sm-6">
+                <h3>Companies and Alumni</h3>
+                  <canvas id="my"></canvas>
+              </div>
+
+            
+            <br>
+    <br><br>  <br>
+    <br><br>
+    <div class="
+              d-flex
+              justify-content-between
+              flex-wrap flex-md-nowrap
+              align-items-center
+              pt-3
+              pb-2
+              mb-3
+              border-bottom
+            ">
+        <h1 class="h2">Higher Studies</h1>
+
+    </div>
+    <br>
+    <br>
+    <div class="row">
+            
+            
+            
+            <div class="col-md-4 col-sm-8">
+                <h3 style="text-decoration-line: underline;">Degrees</h3>
+                  <canvas id="myCha"></canvas>
+              </div>
+              <div class="col-md-8 col-sm-6">
+                <h3 style="text-decoration-line: underline;">Specializations</h3>
+                  <canvas id="myCh"></canvas>
+              </div>
+        </div>
+
+        <br><br><br>
+        
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+    <script>
+      const ctr = document.getElementById('myChartt');
+    
+      new Chart(ctr, {
+        type: 'bar',
+        data: {
+          labels: [{% for item in eve %}'{{item.Date__year}}', {% endfor %}],
+          datasets: [{
+            label: 'No of Events',
+            data: [{% for item in eve %}{{item.total}}, {% endfor %}],
+           
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          },
+          animation: {
+            duration: 6000,
+        },
+          
+        }
+      });
+    </script>   
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+ <script>
+
+ 
+ $(document).ready(function(){
+     $('.counter-value').each(function(){
+         $(this).prop('Counter',0).animate({
+             Counter: $(this).text()
+         },{
+             duration: 3500,
+             easing: 'swing',
+             step: function (now){
+                 $(this).text(Math.ceil(now));
+             }
+         });
+     });
+ });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    const ctx = document.getElementById('myChart');
+  
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Higher Studies', 'Jobs','Enterprenuers','Others'],
+        datasets: [{
+          label: 'No of Alumni',
+          data: [{{h}}, {{j}},{{e}},{{o}}],
+          
+          borderWidth: 1
+        }]
+      },
+      options: {
+      
+        animation: {
+            duration: 6000,
+        },
+      }
+      
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    const ct = document.getElementById('myChar');
+  
+    new Chart(ct, {
+      type: 'bar',
+      data: {
+        labels: [{% for item in role %}'{{item.role}}', {% endfor %}'Others'],
+        datasets: [{
+          label: 'No of Alumni',
+          data: [{% for item in role %}{{item.total}}, {% endfor %}{{roleo}}],
+          borderColor: '#FF6384',
+      backgroundColor: '#FFB1C1',
+          
+         
+          borderWidth:1
+        }]
+      },
+      options: {
+        scales: {
+            
+          y: {
+            beginAtZero: true
+          }
+        },
+        animation: {
+            duration: 6000,
+        },
+      }
+    });
+  </script>
+  <script>
+    const ctp = document.getElementById('my');
+  
+    new Chart(ctp, {
+      type: 'bar',
+      data: {
+        labels: [{% for item in com %}'{{item.company_name}}', {% endfor %}],
+        datasets: [{
+          label: 'No of Alumni',
+          data: [{% for item in com %}{{item.total}}, {% endfor %}],
+          
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        animation: {
+            duration: 6000,
+        },
+      }
+    });
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    const ctw = document.getElementById('myCha');
+  
+    new Chart(ctw, {
+      type: 'doughnut',
+      data: {
+        labels: [{% for item in deg %}'{{item.degree}}', {% endfor %}],
+        datasets: [{
+          label: 'No of Alumni',
+          data: [{% for item in deg %}{{item.total}}, {% endfor %}],
+         
+          borderWidth: 1
+        }]
+      },
+      options: {
+       
+        animation: {
+            duration: 6000,
+        },
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    const ctq = document.getElementById('myCh');
+  
+    new Chart(ctq, {
+      type: 'bar',
+      data: {
+        labels: [{% for item in spec %}'{{item.specialization}}', {% endfor %}'Others'],
+        datasets: [{
+          label: 'No of Alumni',
+          
+          data: [{% for item in spec %}{{item.total}}, {% endfor %},{{speco}}],
+          borderColor: '#FF6384',
+      backgroundColor: '#FFB1C1',
+         
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        animation: {
+            duration: 6000,
+        },
+      }
+    });
+  </script>
+  
+  </main>
+</main>
+{% endblock %}

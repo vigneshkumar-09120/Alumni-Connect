@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+{% if perms.auth.is_admin %}
+{% include "admin/components/sidebar.html" %}
+{% elif perms.auth.is_alumnus %}
+{% include "alumni/components/sidebar.html" %}
+{% elif perms.auth.is_student %}
+{% include "student/components/sidebar.html" %}
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <h1 class="mt-5 h2">Student List</h1>
+  <form action="">
+        <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+          <div class="input-group">
+            <input type="search" name="q" placeholder="Search based on USN , Name  " aria-describedby="button-addon1" class="form-control border-0 bg-light">
+            <div class="input-group-append">
+              <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="bi bi-search"></i></button>
+            </div>
+          </div>
+        </div>
+        </form>
+  <div class="mt-5">
+    <table class="mt-4 table table-bordered border-dark">
+      <thead class="table-dark">
+        <tr>
+        
+          
+          <th scope="col">USN</th>
+          <th scope="col">NAME</th>
+          <th scope="col">CONTACT NUMBER</th>
+          <th scope="col">RV EMAIL ID</th>
+          <th scope="col">EMAIL ID</th>
+          <th scope="col">Branch</th>
+          <th scope="col">Year Joined</th>
+
+          {% if perms.auth.is_admin %}
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+          {% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in students%}
+        <tr>
+       
+          
+          <td>{{item.usn}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.phone}}</td>
+          <td>{{item.rv_email}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.branch}}</td>
+          <td>{{item.year_joined}}</td>
+          {% if perms.auth.is_admin %}
+          <td>
+            <a href="{% url 'update_student' pk=item.id %}" class="btn text secondary px-0">
+             <i class="bi bi-pencil-square"></i>
+            </a>
+         </td>
+
+          <td>
+            <form action="{% url 'delete_student' pk=item.user.pk %}" method="post" onsubmit = "return confirm('Are you sure you want to delete?')">
+              {% csrf_token %}
+              {% csrf_token %}
+              <button type="'submit" class="btn">
+                <i class="bi bi-trash"></i>
+            </button>
+            </form>
+          </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+{% endblock %}

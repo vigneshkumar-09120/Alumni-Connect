@@ -1,0 +1,33 @@
+{% extends "base.html" %} 
+{% block sidebar %} 
+{% include "admin/components/sidebar.html" %} 
+{% endblock %} 
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div
+    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+  >
+    <h1 class="h2">Help Page</h1>
+  </div>
+
+  <h3 class="h4">Student Search</h3>
+  <h4 class="h5">Valid Search keys:</h4>
+  <ul>
+    <li>USN</li>
+    <li>SAP</li>
+    <li>Name</li>
+    <li>Phone</li>
+    <li>Email</li>
+  </ul>
+
+  <h4 class="h5">Valid Options:</h4>
+  <ul>
+    <li>is or =</li>
+    <li>startswith</li>
+    <li>endwsith</li>
+    <li>after</li>
+    <li>before</li>
+  </ul>
+</main>
+
+{% endblock %}

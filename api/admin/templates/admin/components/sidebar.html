@@ -1,0 +1,107 @@
+<nav id="sidebarMenu" class="navbar-dark bg-dark col-md-3 col-lg-2 d-md-block sidebar-sticky collapse">
+    <div class="position-sticky pt-1">
+        <div class="mb-4">
+            <button class="btn bg-transparent align-items-center rounded collapsed" data-bs-toggle="collapse"
+                data-bs-target="#new-collapse" aria-expanded="true">
+                <span class='navbar-text'><b>Dashboard</b></span>
+            </button>
+        <ul class="nav flex-column">
+            <div class="mb-4">
+                <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                        href="{% url 'home' %}">
+                        <span data-feather="home" class="me-3"></span>Home
+                    </a>
+                </li>
+            
+            
+                </div>
+            </div>
+            <div class="position-sticky pt-1">
+                <div class="mb-4">
+                    <button class="btn bg-transparent align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#new-collapse" aria-expanded="true">
+                        <span class='navbar-text'><b>Lists</b></span>
+                    </button>
+                    <ul class="nav flex-column">
+                        <div class="mb-4">
+                <li class="nav-item {% if request.resolver_match.url_name == 'list_student' %}active{% endif %}">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'list_student' %}active{% endif %}"
+                        aria-current="page" href="{% url 'list_student' %}">
+                        <span data-feather="users" class="me-3"></span>Students List
+                    </a>
+                </li>
+                <li class="nav-item {% if request.resolver_match.url_name == 'list_alumni' %}active{% endif %}">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'list_alumni' %}active{% endif %}"
+                        aria-current="page" href="{% url 'list_alumni' %}">
+                        <span data-feather="users" class="me-3"></span>Alumni List
+                    </a>
+                </li>
+                <li class="nav-item {% if request.resolver_match.url_name == 'list_alumni' %}active{% endif %}">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'list_alumni' %}active{% endif %}"
+                        aria-current="page" href="{% url 'list_event' %}">
+                        <span data-feather="bar-chart-2" class="me-3"></span>Event List
+                    </a>
+                </li>
+                
+                
+            </div>
+
+
+            <div class="mb-4">
+                <button class="btn bg-transparent align-items-center rounded collapsed" data-bs-toggle="collapse"
+                    data-bs-target="#new-collapse" aria-expanded="true">
+                    <span class='navbar-text'><b>Add Details</b></span>
+                </button>
+                <div class="collapse show" id="new-collapse">
+                    <ul class="nav flex-column">
+                        <li class="nav-item {% if request.resolver_match.url_name == 'new_student' %}active{% endif %}">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'new_student' %}active{% endif %}"
+                                aria-current="page" href="{% url 'new_student' %}">
+                                <span data-feather="user-plus" class="me-3"></span> Add Student
+                            </a>
+                        </li>
+                        <li class="nav-item {% if request.resolver_match.url_name == 'new_alumni' %}active{% endif %}">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'new_alumni' %}active{% endif %}"
+                                aria-current="page" href="{% url 'new_alumni' %}">
+                                <span data-feather="user-plus" class="me-3"></span> Add Alumnus
+                            </a>
+                        </li>
+                        <li class="nav-item {% if request.resolver_match.url_name == 'new_alumni' %}active{% endif %}">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'new_alumni' %}active{% endif %}"
+                                aria-current="page" href="{% url 'new_event' %}">
+                                <span data-feather="bar-chart-2" class="me-3"></span> Add Event
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="mb-4">
+                <button class="btn bg-transparent align-items-center" data-bs-toggle="collapse"
+                    data-bs-target="#upload-collapse" aria-expanded="true">
+                    <span class='navbar-text'><b>Upload User Data</b></span>
+                </button>
+                <div class="collapse show" id="upload-collapse">
+                    <ul class="nav flex-column">
+                        <li
+                            class="nav-item {% if request.resolver_match.url_name == 'upload_student' %}active{% endif %}">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'upload_student' %}active{% endif %}"
+                                aria-current="page" href="{% url 'upload_student' %}">
+                                <span data-feather="database" class="me-3"></span> Student Data
+                            </a>
+                        </li>
+                        <li
+                            class="nav-item {% if request.resolver_match.url_name == 'upload_alumni' %}active{% endif %}">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'upload_alumni' %}active{% endif %}"
+                                aria-current="page" href="{% url 'upload_alumni' %}">
+                                <span data-feather="database" class="me-3"></span> Alumni Data
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </ul>
+    </div>
+</nav>

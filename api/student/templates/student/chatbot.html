@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css">
+    <style>
+        *{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+}
+
+body{
+
+width:100%;
+
+min-height:100vh;
+
+}
+
+.main-container{
+
+margin:0 auto;
+
+width:100%;
+
+height:100%;
+
+max-width:500px;
+
+padding:20px 0;
+
+}
+
+#chatbot-container{
+
+width:95%;
+
+height:350px;
+
+margin:10px auto;
+
+padding:10px 5px;
+
+overflow-y:auto;
+
+background:#f3f3f3;
+
+display:flex;
+
+display:-ms-flexbox;
+
+display:inline-flex;
+
+display:-webkit-flex;
+
+flex-direction: column;
+
+border-radius:10px;
+
+}
+
+.speech::first-letter,
+
+.recorder::first-letter{
+
+text-transform: capitalize;
+
+}
+
+#chatbot-container .recorder{
+
+color:#fff;
+
+background:#78f;
+
+border-radius:5px;
+
+padding:8px;
+
+margin:4px 0;
+
+max-width:250px;
+
+align-self:flex-start;
+
+flex-shrink: 0;
+
+
+
+}
+
+#chatbot-container .speech{
+
+ color:#fff;
+
+background:#1c8;
+
+border-radius:5px;
+
+padding:8px;
+
+margin:4px 0;
+
+flex-shrink: 0;
+
+ align-self:flex-end;
+
+max-width:250px;
+
+}
+
+button{
+
+ border:none;
+
+outline:none;
+
+background:none;
+
+}
+
+.fa-telegram-plane{
+
+font-size:36px;
+
+width:15%;
+
+padding:8px 12px;
+
+line-height: 30px;
+
+cursor: pointer;
+
+display:inline-block;
+
+}
+
+.fa-telegram-plane:hover{
+
+color:#78f;
+
+}
+
+#btn{
+
+background:#78f;
+
+color:whiteSmoke;
+
+padding:10px 25px;
+
+font-size:22px;
+
+font-weight:600;
+
+display:block;
+
+box-shadow:0 3px 10px #a7f;
+
+margin:0 auto ;
+
+ transition:0.5s;
+
+}
+
+#btn:hover{
+
+padding-right: 30px;
+
+background:#6a7;
+
+transition:0.5s;
+
+}
+
+#form{
+
+width:100%;
+
+text-align: center;
+
+margin-bottom: 8px;
+
+}
+
+#form #botvalue{
+
+padding:8px 10px;
+
+border-radius:6px;
+
+outline:none;
+
+width:calc(100% - 18%);
+
+line-height: 30px;
+
+border:1px solid #555;
+
+font-size:17px;
+
+font-weight:normal;
+
+}
+    </style>
+</head>
+
+{% extends "base.html" %}
+
+{% block sidebar %}
+{% if perms.auth.is_admin %}
+{% include "admin/components/sidebar.html" %}
+{% elif perms.auth.is_alumnus %}
+{% include "alumni/components/sidebar.html" %}
+{% elif perms.auth.is_student %}
+{% include "student/components/sidebar.html" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+ 
+    
+
+    
+   
+   <div class="main-container">
+   
+      <div id="chatbot-container">
+   
+      
+   
+     </div>
+   
+     <form id="form" method="get" accept-charset="utf-8">
+   
+      <input type="text" name="botvalue" id="botvalue" placeholder="Say something"/>
+   
+      <button type="submit" class="submit fab fa-telegram-plane"></button>
+   
+     </form>
+   
+     <button id="btn" type="button" onclick="startVoice()" class="fa fa-microphone"> start voice</button>
+   
+   </div>
+   
+<script>
+    let container=document.getElementById('chatbot-container');
+
+let btn=document.getElementById('btn');
+
+   let form=document.getElementById('form');
+
+let arr1=[
+
+  { name:"hello",text:"Hi!, How can i help you?"},
+
+  { name:"How can I connect with an alumni",text:"You can view the profile of alumni based on your interests and use their contact details to connect with them. You can also comment on their posts and interact."},
+
+  { name:"On what basis can I filter alumni?",text:"You can filter alumni based on USN, Name, Role, Specialization,University, Degree and Company name"},
+
+  { name:"In which company most of our alumni work",text:{% for item in com %}"{{item.company_name}}"{% endfor %}},
+
+  {
+   name:"In which university most of our alumni are pursuing their degree",text:{% for item in uni %}"{{item.college_name}}"{% endfor %}},
+
+  
+
+  { name:"What is your purpose",text:"To assist you in navigating this system and know about the achivements of our alumni"
+
+  },
+
+  {
+
+   name:"How many alumni are active in our community",text:"{{alumni}} alumni"
+
+  },
+
+ 
+
+  {
+
+   name:"what's up",text:"i'm good,thanks"
+
+  },
+
+  {
+
+   name:"do you have a boyfriend",text:"nah, am single and happy"
+
+  },
+
+  {
+
+   name:"can i be your boyfriend",text:"oh! no, i love our friendship"
+
+  },
+
+  {
+
+   name:"why are you single",text:"because i don't like sharing my dessert "
+
+  },
+
+  {
+
+   name:"do you love me",text:"yes, i do"
+
+  },
+
+  {
+
+   name:"why do you love me",text:"because you're human"
+
+  },
+
+  {
+
+   name:"why do you love humans",text:"i love humans because they created me"
+
+  },
+
+  {
+
+   name:"what do you do for a living",text:"i talk for a living"
+
+  },
+
+  {
+
+   name:"are you married",text:"no, I'm not"
+
+  },
+
+  {
+
+   name:"why are you not married",text:"because i can't get married"
+
+  },
+
+  {
+
+   name:"why can't you get married",text:"because am a robot"
+
+  },
+
+  {
+
+   name:"will you marry me",text:"oh! sorry i can\'t, but we can be friends if you don\'t mind "
+
+  },
+
+  {
+
+   name:"do you know siri",text:"yes i do"
+
+  },
+
+  {
+
+   name:"who is siri",text:"she's a sister robot"
+
+  },
+
+  {
+
+   name:"who are you",text:"am a robot"
+
+  },
+
+  {
+
+   name:"how old are you",text:'i am few hours old'
+
+  },
+
+  {
+
+   name:"who is your father",text:'his name is victory lucky chukwuede'
+
+  }
+
+  
+
+];
+
+const SpeechRecognition=window.SpeechRecognition || window.webkitSpeechRecognition ;
+
+const recorder=new SpeechRecognition();
+
+recorder.onstart=()=>{
+
+console.log('voice is active');
+
+ btn.innerHTML=" voice is active";
+
+}
+
+recorder.onend=()=>{
+
+  btn.innerHTML=" start voice";
+
+}
+
+function botVoice(message){
+
+ const speech= new SpeechSynthesisUtterance();
+
+ speech.text="i don't understand that";
+
+ for(let botData of arr1){
+
+  if(message.includes(botData.name.toLowerCase())){
+
+   speech.text=botData.text
+
+  }
+
+ }
+
+container.innerHTML+=`<p class="speech">${speech.text}</p>`;
+
+speech.volume=1;
+
+speech.rate=1;
+
+speech.pitch=0.1;
+
+ window.speechSynthesis.speak(speech);
+
+}
+
+recorder.onresult=(event)=>{
+
+ console.log(event);
+
+ const current=event.resultIndex;
+
+  const transcript=event.results[current][0].transcript;
+
+   container.innerHTML+=`<p class="recorder">${transcript}</p>`;
+
+   botVoice(transcript.toLowerCase());
+
+}
+
+function startVoice(){
+
+ recorder.start();
+
+}
+
+form.onsubmit=(e)=>{
+
+ e.preventDefault();
+
+    let formInput=document.getElementById('botvalue').value;
+
+if(formInput==''){
+
+ return false;
+
+}
+
+else{
+
+container.innerHTML+=`<p class="recorder">${formInput}</p>`;
+
+    botVoice(formInput.toLowerCase());
+
+form.reset();
+
+   return true;
+
+}
+
+}
+</script>     
+   
+     
+</main>
+   
+   
+
+{% endblock %}    

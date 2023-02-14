@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+{% include "admin/components/sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="mt-5">
+    <h1 class="h1">Upload</h1>
+    <section class="mt-5">
+      <div class="card text-white bg-dark col-md-6 offset-md-3 mt-5 p-5">
+        <form method="post" enctype="multipart/form-data" action="{% url 'upload_alumni' %}">
+          {% csrf_token %}
+          <label for="formFile" class="form-label">
+            <h2 class="h4">Upload Alumni Data </h2>
+          </label>
+          <input class="form-control" name="file" type="file" id="file" />
+          <div class="mt-2">
+            <div style="color:rgb(230, 102, 102)">
+            * upload .csv file
+          </div>
+            {% if messages %}
+            <ul class="success-list">
+              {% for message in messages %}
+              <li class="success-list">{{ message }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+            {% if form.errors %}
+            {% for field in form %}
+            {% for error in field.errors %}
+            <div class="alert alert-danger">
+              <strong>{{ error|escape }}</strong>
+            </div>
+            {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+              <strong>{{ error|escape }}</strong>
+            </div>
+            {% endfor %}
+            {% endif %}
+          </div>
+          <div class="mt-4">
+            <button type="submit" class="btn btn-primary">Upload</button>
+          </div>
+        </form>
+      </div>
+    </section>
+    <section class="mt-5">
+      Note:<br />
+      1. Use this form to upload only alumni data.<br>
+      2. The permissions to all new users will be set automatically.<br>
+      3. The input file should have .csv extension.<br>
+      4. The following format should be followed:
+      <table class=" mt-4 table">
+        <thead>
+          <tr>
+            <th scope="col">Sl</th>
+            <th scope="col">USN</th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">RV Email</th>
+            <th scope="col">Email</th>
+            <th scope="col">Department</th>
+            <th scope="col">Year Join</th>
+            <th scope="col">Year Pass</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>1RV17IS006</td>
+            <td>Anup Kumar P</td>
+            <td>9551515261</td>
+            <td>anup@rvce.edu.in</td>
+            <td>anup@gmail.com</td>
+            <td>ISE</td>
+            <td>yyyy-mm-dd</td>
+            <td>yyyy-mm-dd</td>
+            
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            <td>...</td>
+            
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</main>
+{% endblock %}

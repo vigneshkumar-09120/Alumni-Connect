@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+{% if perms.auth.is_admin %}
+{% include "admin/components/sidebar.html" %}
+{% elif perms.auth.is_alumnus %}
+{% include "alumni/components/sidebar.html" %}
+{% elif perms.auth.is_student %}
+{% include "student/components/sidebar.html" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="card text-white bg-dark col-md-6 offset-md-3 mt-5 p-5">
+    <h1 class="h2 mb-4">Skill Form</h1>
+    <form method="post">
+      {% csrf_token %}
+      <div class="mt-2">
+        <label class="col-form-label">Add skills</label>
+        {{ form.skill }}
+      </div>
+      
+      <div class="mt-2">
+        {% if messages %}
+        <ul class="success-list">
+          {% for message in messages %}
+          <li class="success-list">{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if form.errors %}
+        {% for field in form %}
+        {% for error in field.errors %}
+        <div class="alert alert-danger">
+          <strong>{{ error|escape }}</strong>
+        </div>
+        {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+          <strong>{{ error|escape }}</strong>
+        </div>
+        {% endfor %}
+
+        {% endif %}
+      </div>
+      <div class="mt-4">
+        <button type="submit" class="btn btn-primary">Add </button>
+      </div>
+    </form>
+  </div>
+</main>
+  {% endblock %}

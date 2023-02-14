@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block sidebar %}
+{% include "admin/components/sidebar.html" %}
+{% endblock %} {% block content %}
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="mt-5">
+      <h1 class="h1">Upload</h1>
+      <section class="mt-5">
+        <div class="card text-white bg-dark col-md-6 offset-md-3 mt-5 p-5">
+          <form method="post" enctype="multipart/form-data" action="{% url 'upload_admin' %}">
+            {% csrf_token %}
+            <label for="formFile" class="form-label">
+              <h2 class="h4">Upload Data</h2>
+            </label>
+            <input class="form-control" name="file" type="file" id="file" />
+            <div class="mt-2">
+              {% if messages %}
+              <ul class="success-list">
+                {% for message in messages %}
+                <li class="success-list">{{ message }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+              {% if form.errors %}
+              {% for field in form %}
+              {% for error in field.errors %}
+              <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+              </div>
+              {% endfor %}
+              {% endfor %}
+              {% for error in form.non_field_errors %}
+              <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+              </div>
+              {% endfor %}
+              {% endif %}
+            </div>
+            <div class="mt-4">
+              <button type="submit" class="btn btn-primary">Upload</button>
+            </div>
+          </form>
+        </div>
+      </section>
+      <section class="mt-5">
+        
+      </section>
+    </div>
+  </main>
+{% endblock %}

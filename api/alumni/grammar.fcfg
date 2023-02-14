@@ -1,0 +1,38 @@
+% start S
+
+S[SEM=(?np + WHERE + ?vp)] -> NP[SEM=?np] VP[SEM=?vp]
+
+VP[SEM=(?v + ?pp)] -> IV[SEM=?v] PP[SEM=?pp]
+VP[SEM=(?v + ?ap)] -> IV[SEM=?v] AP[SEM=?ap]
+VP[SEM=(?v + ?np)] -> TV[SEM=?v] NP[SEM=?np]
+VP[SEM=(?vp1 + ?c + ?vp2)] -> VP[SEM=?vp1] Conj[SEM=?c] VP[SEM=?vp2]
+
+NP[SEM=(?det + ?n)] -> Det[SEM=?det] N[SEM=?n]
+NP[SEM=(?n + ?pp)]  -> N[SEM=?n] PP[SEM=?pp]
+NP[SEM=?n]  -> N[SEM=?n]  | CardN[SEM=?n] 
+
+## NB Numbers in the Chat-80 database represent thousands.
+CardN[SEM='1000'] -> '1,000,000' 
+
+PP[SEM=(?p + ?np)] -> P[SEM=?p] NP[SEM=?np]
+AP[SEM=?pp] -> A[SEM=?a] PP[SEM=?pp]
+
+NP[SEM='Country="greece"'] -> 'Greece'
+NP[SEM='Country="china"'] -> 'China'
+
+Det[SEM='SELECT'] -> 'Which' | 'What'
+Det[SEM='SELECT COUNT(*)'] -> 'How'
+Conj[SEM='AND'] -> 'and'
+
+N[SEM='Placements GROUP BY company'] -> 'company'
+N[SEM='name FROM Alumni'] -> 'alumni'
+N[SEM='Population'] -> 'populations'
+N[SEM='JPMC'] -> 'JPMC'
+
+IV[SEM=''] -> 'are'
+IV[SEM=''] -> 'many'
+TV[SEM=''] -> 'working'
+TV[SEM=''] -> 'have'
+A -> 'located'
+P[SEM=''] -> 'in'
+P[SEM='>'] -> 'above'

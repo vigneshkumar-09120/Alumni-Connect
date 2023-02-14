@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="col-md-4 offset-md-4 mt-5">
+  <h1 class="h2">Insufficient Permissions :(</h1>
+  <h1 class="h3">Contact your admin for more information</h1>
+  <p><a href="{% url 'login' %}?next=/">Log in</a></p>
+</div>
+
+{% endblock %}

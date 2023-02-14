@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+{% if perms.auth.is_admin %}
+{% include "admin/components/sidebar.html" %}
+{% elif perms.auth.is_alumnus %}
+{% include "alumni/components/sidebar.html" %}
+{% elif perms.auth.is_student %}
+{% include "student/components/sidebar.html" %}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="card" style="width: 30rem;">
+    <h2><b>Profile</b></h2>
+    <div class="card-body">
+      <h5 class="card-title"> <b>Name : </b>{{data.name}}</h5>
+      <p class="card-text"><b>USN : </b>{{data.usn}}
+    <br><b>Email : </b>{{data.email}}
+    <br><b>Email : </b>{{data.phone}}
+</p>
+    </div>
+    <h3><b>Skills</b></h3>
+    <ul class="list-group list-group-flush">
+       
+{% for item in item %}
+      <li class="list-group-item">{{item.skill}}</li>
+      {% endfor %}
+      
+    </ul>
+    
+  </div>
+{% endblock %}
