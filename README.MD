@@ -1,12 +1,4 @@
-###### Run Docker command to initially start the project.
 
-```Shell
-docker-compose up
-```
-###### New terminal to run commands.
-
-```Shell
-docker exec -it dbdex_api_c bash
 ```
 ###### Run migrations to migrate tables to database.
 
@@ -59,9 +51,4 @@ students, _ = Group.objects.get_or_create(name='students')
 students_ct, _ = ContentType.objects.get_or_create(app_label='auth', model='User')
 is_student, _ = Permission.objects.get_or_create(name='is_student', codename='is_student', content_type=students_ct)
 students.permissions.add(is_student)
-```
-###### To delete a particular user.
-```Python
-from django.contrib.auth.models import User
-User.objects.get(username='<username>').delete()
 ```
