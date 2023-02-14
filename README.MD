@@ -1,5 +1,4 @@
 
-```
 ###### Run migrations to migrate tables to database.
 
 ```Shell
